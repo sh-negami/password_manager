@@ -5,16 +5,16 @@ while true; do
         read -p "サービス名を入力してください：" s_name
         read -p "ユーザー名を入力してください：" u_name
         read -p "パスワードを入力してください：" p_name
-        echo "${s_name}:${u_name}:${p_name}" >> password.txt
+        printf "%s:%s:%s\n" "${s_name}" "${u_name}" "${p_name}" >> password.txt
 
         echo "パスワードの追加は成功しました。"
     elif [ "${action,,}" = "get password" ] || [ "${action,,}" = "g" ]; then
         read -p "サービス名を入力してください：" target
         while IFS=: read -r s_name u_name p_name; do
             if [ "$s_name" = "$target" ]; then
-                echo "サービス名： $s_name"
-                echo "ユーザー名： $u_name"
-                echo "パスワード： $p_name"
+                printf "サービス名：%s\n" "$s_name"
+                printf "ユーザー名：%s\n" "$u_name"
+                printf "パスワード：%s\n" "$p_name"
                 break 2
             fi
         done < password.txt
