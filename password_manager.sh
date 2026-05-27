@@ -16,6 +16,10 @@ while true; do
 
         echo "パスワードの追加は成功しました。"
     elif [ "${action,,}" = "get password" ] || [ "${action,,}" = "g" ]; then
+        if [ ! -f password.txt ]; then
+            echo "パスワードはまだ登録されていません。"
+            continue
+        fi
         is_registered=false #フラグの初期化
         read -r -p "サービス名を入力してください：" target
         while IFS=: read -r s_name u_name p_name; do
